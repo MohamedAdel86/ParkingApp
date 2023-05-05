@@ -3,27 +3,26 @@
 {% block headcontent %}
 {% load static %}
   <meta property="og:title" content="Vote page" />
-  <link rel=" stylesheet" href="{% static 'css/vote.css' %}" />
+  <link rel=" stylesheet" href="{% static 'css/expandparking.css' %}" />
   <title>Parking</title>
 {% endblock %}
 
 {% block maincontent %} 
 {% for p in parking %}
-<a href = "">
-<div class="small card sharp">
+<div class="parking-img-container">
   <img  class = "parking-img" src="{{p.parkingphoto.url}}"></img>
+</div>
 
-  <div class="flexhoriz">
-    <div class="card-name">
+  <div class="parking-title">
+    <div class="">
       {{p.Name}}
     </div>
-
-    <div class="">
-      {{p.price}}EGP
-    </div>
-
   </div>
-</div>
-</a>
+
+  <div class="parking-desc">
+    {{p.price}}EGP
+    <div calss="flexhoriz">
+      </div>
+  </div>
 {% endfor %}
 {% endblock %}

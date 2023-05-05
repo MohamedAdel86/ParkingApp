@@ -3,7 +3,6 @@
 {% block headcontent %}
 {% load static %}
   <meta property="og:title" content="Vote page" />
-  <link rel=" stylesheet" href="{% static 'css/vote.css' %}" />
   <title>Parking spots</title>
 {% endblock %}
 
@@ -11,9 +10,9 @@
   {% for p in parkingspots %}
   <a href = "{%url 'expandparking' p.id %}">
   <div class="small card sharp">
-    <img  class = "parking-img" src="{{p.parkingphoto.url}}"></img>
+    <img  class = "card-parking-img" src="{{p.parkingphoto.url}}"></img>
 
-    <div class="flexhoriz">
+    <div class="card-title">
       <div class="card-name">
         {{p.Name}}
       </div>

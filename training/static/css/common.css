@@ -150,7 +150,7 @@ header a:last-of-type {
   margin-left: 100px;
 }
 
-.parking-img{
+.card-parking-img{
   
   position: absolute;
   top: 0;
@@ -172,11 +172,6 @@ header a:last-of-type {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
   font: 20px muli;
   color:rgb(35, 35, 35);
-}
-
-.card-name{
-  font: 30px muli;
-  color:rgb(255, 255, 255);
 }
 
 .round{
@@ -213,7 +208,7 @@ header a:last-of-type {
   min-height: 300px;
 }
 
-.flexhoriz{
+.card-title{
   display: flex;
   flex-flow: row;
   justify-content: center;
@@ -228,9 +223,15 @@ header a:last-of-type {
   border-radius: 10px;
   border-top-left-radius: 0px;
   border-top-left-radius: 0px;
+}
 
-
-
+.flexhoriz{
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
 }
 
 .flexvert{
