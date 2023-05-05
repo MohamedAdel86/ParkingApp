@@ -1,0 +1,91 @@
+<script defer>
+$(document).ready(function() {
+
+/*select2 package*/
+    $('select').select2({  maximumSelectionLength: 2
+});
+
+/*Menu icon functionality*/
+let main_side_bar = document.querySelector(".main-side-bar")
+let menu_icon = document.querySelector(".menu-icon")
+
+  menu_icon.onclick = () => {
+    if (main_side_bar.className == 'main-side-bar main-side-bar-collapsed')
+      {
+        main_side_bar.classList.remove("main-side-bar-collapsed")
+    }
+    else
+    main_side_bar.classList.add("main-side-bar-collapsed") 
+   };
+
+
+let header = document.querySelector("header");
+
+/*Buttons*/
+  let myButton1 = document.querySelector("#b1");
+  let myButton2 = document.querySelector("#b2");
+  let myButton5 = document.querySelector("#b5");
+  let myButton3 = document.querySelector("#b3");
+  let myButton4 = document.querySelector("#b4");
+  let myButton6 = document.querySelector("#b6");
+
+  let myButton7 = document.querySelector("#b7");
+  let myButton8 = document.querySelector("#b8");
+  let myButton9 = document.querySelector("#b9");
+
+
+  if (myButton1 != null) {
+  myButton1.onclick = () => {
+    window.open("{% url 'sign_in' %}", "_self");
+  };
+};
+
+if (myButton2 != null) {
+  myButton2.onclick = () => {
+    window.open("{% url 'log_out' %}", "_self");
+  };
+};
+
+if (myButton3 != null) {
+  myButton3.onclick = () => {
+    window.open("{% url 'nomination' %}", "_self");
+  };
+};
+
+if (myButton4 != null){
+  myButton4.onclick = () => {
+    window.open("{% url 'result' %}", "_self");
+  };
+};
+
+if (myButton5 != null) {
+  myButton5.onclick = () => {
+    window.open("{% url 'vote1' %}", "_self");
+  };
+};
+
+if (myButton6 != null){
+myButton6.onclick = () => {
+    window.open("{% url 'contention' %}", "_self");
+  };
+};
+
+if (myButton7 != null) {
+  myButton7.onclick = () => {
+    window.open("{% url 'list_nominee' %}", "_self");
+  };
+};
+
+if (myButton8 != null) {
+  myButton8.onclick = () => {
+    window.open("{% url 'duration' %}", "_self");
+  };
+};
+  if (myButton9 != null) {
+  myButton9.onclick = () => {
+    window.open("{% url 'list_contention' %}", "_self");
+  };
+};
+
+});
+</script>

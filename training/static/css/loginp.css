@@ -1,0 +1,21 @@
+
+input {
+    mix-blend-mode: darken;
+    background-color: #eee;
+    height: 30px;
+    padding-right: 5px;
+}
+
+input:focus {
+    mix-blend-mode: normal;
+    background-color: white;
+}
+
+h2 {
+    cursor: context-menu;
+}
+
+h2::selection
+{
+    mix-blend-mode: color;
+}

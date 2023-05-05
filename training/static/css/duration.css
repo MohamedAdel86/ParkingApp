@@ -1,0 +1,33 @@
+.new-elec{
+    display: flex;
+    justify-content: center;
+}
+button{
+    cursor: pointer;
+}
+.confirm {
+    display: none;
+  
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid black;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.confirm .con{
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+}
+.confirm p{
+    text-align: center;
+}
+.confirm  button{
+    width: 70px;
+    height: 35px;
+    cursor: pointer;
+}

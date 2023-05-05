@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.20.0.min.js" charset="utf-8"></script>
+    {% load static %}
+
+    <meta charset="utf-8" />
+    <meta property="og:image" content="images/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:description" content="Students Union" />
+    <link rel="icon" type="image/x-icon" href="{% static 'img/logo.png' %}" />
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/common.css' %}" />
+
+  {% block headcontent %}
+    <meta property="og:title" content="Home Page" />
+    <title>Students Union</title>
+  {% endblock %}
+</head>
+
+  <body>
+    <div class="container">
+
+      <header>
+        <a href="{% url 'home' %}">
+          <img src="{% static 'img/logo.png' %}" alt="logo" class="logo" />
+        </a>
+        <a href="{% url 'home' %}">
+          <h1 id="logotext1">FCAI Beni Suef University</h1>
+        </a>
+      </header>
+
+      <aside class="main-side-bar main-side-bar-collapsed">
+        <a  class="menu-icon">
+          <img src="{% static 'img/menu.svg' %}" alt="menu"/>
+        </a>
+
+        <div class="sidebar-login">
+        {% if request.user.is_authenticated %}
+        <div class="user">
+          <img src="../static/img/user.png" alt="User Icon" >
+          <h2 id="welcomeMessage">{{request.user.username}}</h2>  
+        </div>
+        <button class="side-bar-button" id="b2">تسجيل خروج</button>
+        {% else %}
+        <button class="side-bar-button" id="b1">تسجيل دخول</button>
+        {% endif %}
+        </div>
+        
+        <div class="sidebar-options">
+
+        {% if admin == False %}
+        <button class="side-bar-button" id="b3">تقديم طلب الترشح</button>
+        <button class="side-bar-button" id="b5">انتخاب</button>
+        <button class="side-bar-button" id="b4">النتيجه</button>
+        <button class="side-bar-button" id="b6">تقديم طعن</button>
+
+        {% else %}
+
+        <button class="side-bar-button" id="b7">بيانات المرشحين</button>
+        <button class="side-bar-button" id="b8">تحديد المواعيد</button>
+        <button class="side-bar-button" id="b9">الطعن</button>
+
+        {% endif %}
+
+
+        </div>
+      </aside>
+
+      <section class="main-content">
+        {% block maincontent %}
+        
+        {% endblock %}
+      </section>
+
+      <footer>
+        <div id="foot">FCAI Beni Suef © 2023 - all rights reserved.</div>
+      </footer>
+    </div>
+    
+    {% include 'commonjs.html' %}
+  </body>
+</html>
+
+
