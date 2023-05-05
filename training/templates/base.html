@@ -30,7 +30,7 @@
           <img src="{% static 'img/logo.png' %}" alt="logo" class="logo" />
         </a>
         <a href="{% url 'home' %}">
-          <h1 id="logotext1">FCAI Beni Suef University</h1>
+          <h1 id="logotext1">Parking App</h1>
         </a>
       </header>
 
@@ -54,10 +54,8 @@
         <div class="sidebar-options">
 
         {% if admin == False %}
-        <button class="side-bar-button" id="b3">تقديم طلب الترشح</button>
-        <button class="side-bar-button" id="b5">انتخاب</button>
-        <button class="side-bar-button" id="b4">النتيجه</button>
-        <button class="side-bar-button" id="b6">تقديم طعن</button>
+        <button class="side-bar-button" id="b3">تصفح الparking</button>
+        <button class="side-bar-button" id="b5">حجوزاتك</button>
 
         {% else %}
 
@@ -78,7 +76,7 @@
       </section>
 
       <footer>
-        <div id="foot">FCAI Beni Suef © 2023 - all rights reserved.</div>
+        <div id="foot">Parking App © 2023 - all rights reserved.</div>
       </footer>
     </div>
     

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block headcontent %}
+{% load static %}
+  <meta property="og:title" content="Vote page" />
+  <link rel=" stylesheet" href="{% static 'css/vote.css' %}" />
+  <title>Parking</title>
+{% endblock %}
+
+{% block maincontent %} 
+{% for p in parking %}
+<a href = "">
+<div class="small card sharp">
+  <img  class = "parking-img" src="{{p.parkingphoto.url}}"></img>
+
+  <div class="flexhoriz">
+    <div class="card-name">
+      {{p.Name}}
+    </div>
+
+    <div class="">
+      {{p.price}}EGP
+    </div>
+
+  </div>
+</div>
+</a>
+{% endfor %}
+{% endblock %}

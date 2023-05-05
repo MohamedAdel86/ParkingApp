@@ -10,13 +10,6 @@ from django.utils import timezone
 
 # global varables
 std_access = Control_content.objects.first()
-dates = Dates.objects.first()
-start_nomination = dates.nomin_sd
-end_nomination = dates.nomin_ed
-start_vote = dates.vote_sd
-end_vote = dates.vote_ed
-start_con = dates.con_sd
-end_con = dates.con_ed
 now = timezone.now()
 # end global varables
 
@@ -35,33 +28,8 @@ def admincheck(request):
     return {'admin': False}
 
 
-def durationcheck():
-    if start_nomination <= now <= end_nomination:
-        std_access.nomination = True
-        std_access.save()
-    else:
-        std_access.nomination = False
-        std_access.save()
-
-    if start_vote <= now <= end_vote:
-        std_access.vote = True
-        std_access.save()
-    else:
-        std_access.vote = False
-        std_access.save()
-
-    if start_con <= now <= end_con:
-        std_access.contention = True
-        std_access.save()
-    else:
-        std_access.contention = False
-        std_access.save()
-    return {'std_access': std_access}
-
-
 def home(request):
     context = admincheck(request)
-    durationcheck()
     if context['admin'] == True:
         return redirect('adminp')
     return render(request, 'index.html', context)
@@ -101,44 +69,56 @@ def logout_view(request):
 
 
 @login_required
-def nomination(request):
+def parking(request):
     context = admincheck(request)
-    context.update(durationcheck())
+    current_user = request.user
+    context['parkingspots'] = Parking_spot.objects.all()
+
+    return render(request, 'parking.html', context=context)
+
+
+@login_required
+def expandparking(request, parking_id):
+    context = admincheck(request)
+    current_user = request.user
+    context['parking'] = Parking_spot.objects.filter(id = parking_id)
+    return render(request, 'expandparking.html', context=context)
+    
+@login_required
+def reservation(request):
+    context = admincheck(request)
     current_user = request.user
     User_Mod = User_Model.objects.get(Userkey_id=current_user.id)
-    if Nominee_user.objects.filter(UserModelKey=User_Mod).exists():
-        context.update({"ConfirmationMessage": 'Application already sent'})
+
+    if Reservation.objects.filter(User_Model=User_Mod).exists():
+        context.update({"ConfirmationMessage": 'تم الحجز من قبل'})
         return render(request, 'nom1.html', context=context)
 
     else:
         initial_values = {'Name': User_Mod.Name,
-                          'nominee_id': User_Mod.Student_id,
-                          'address': User_Mod.address,
-                          'birthdate': User_Mod.birthdate,
-                          'collegeYear': User_Mod.collegeYear,
+                          'Date': now,
                           }
-        form = NomineeForm(request.POST or None,
+        form = reservation(request.POST or None,
                            request.FILES, initial=initial_values)
 
         if request.POST:
             if form.is_valid():
-                NewNominee = form.save(commit=False)
-                NewNominee.UserModelKey = User_Mod
-                NewNominee.save()
-                context['ConfirmationMessage'] = "Application sent successfuly"
+                NewReservation = form.save(commit=False)
+                NewReservation.User_Model = User_Mod
+                NewReservation.save()
+                context['ConfirmationMessage'] = "تم الحجز"
             else:
                 context['ConfirmationMessage'] = "Error: couldn't save application"
         context['form'] = form
-        return render(request, 'nom1.html', context=context)
+        return render(request, 'reservation.html', context=context)
 
 
-@login_required
+'''@login_required
 def vote(request):
     context = admincheck(request)
-    context.update(durationcheck())
     current_user = request.user
     User_Mod = User_Model.objects.get(Userkey_id=current_user.id)
-    if User_Mod.Voting_status:
+    if User_Mod.reservation_status:
         context.update({"ConfirmationMessage": 'Already voted'})
         return render(request, 'vote1.html', context=context)
 
@@ -149,7 +129,7 @@ def vote(request):
         })
         if request.POST:
             if form.is_valid():
-                User_Mod.Voting_status = 1
+                User_Mod.reservation_status = 1
                 User_Mod.save()
                 for Community in form.cleaned_data:
                     Nominees = form.cleaned_data[Community]
@@ -170,7 +150,6 @@ def vote(request):
 @login_required
 def result(request):
     context = admincheck(request)
-    context.update(durationcheck())
 
     committee = {}
 
@@ -192,7 +171,6 @@ def result(request):
 @login_required
 def contention(request):
     context = admincheck(request)
-    context.update(durationcheck())
     current_user = request.user
     user_mod = User_Model.objects.get(Userkey_id=current_user.id)
     initial_values = {'Name': user_mod.Name,
@@ -209,7 +187,7 @@ def contention(request):
             context['ConfirmationMessage'] = "Error: couldn't save application"
 
     context['form'] = form
-    return render(request, 'contention.html', context=context)
+    return render(request, 'contention.html', context=context)'''
 
 
 # Admin related views
@@ -219,41 +197,11 @@ def admin(request):
     context = admincheck(request)
     if context['admin'] == True:
 
-        committee = {}
-        nominees = {}
-
-        for c in Nominee_user.community.field.choices:
-            NumofNominees = Nominee_user.objects.filter(community=c[0]).count()
-            committee.update({'c' + c[0]: {'numofNom': NumofNominees}})
-
-        i = 1
-        for Nominee in Nominee_user.objects.all():
-            nominees.update({'n'+str(i): {'الاسم': Nominee.UserModelKey.Name,
-                            'عدد الأصوات': Nominee.Numofvotes, "اللجنة": Nominee.get_community_display()}})
-            i += 1
-
         context.update({'committee': committee, 'nominees': nominees})
         return render(request, 'adminp1.html', context)
     else:
         return HttpResponse('Erorr 404 Not found')
 
-@login_required
-def new_elections(request):
-    context = admincheck(request)
-    if context['admin'] == True:
-        form = Dates_form(request.POST or None)
-        context['df'] = form
-        if request.method == 'GET':
-            Nominee_user.objects.all().delete()
-            Contention.objects.all().delete()
-            User_Model.objects.update(Voting_status = 0)
-            dates.nominations_period_id = dates.nominations_period_id + 1
-            dates.save()
-            
-            context['ConfirmationMessage'] = "تم بداية مرحلة ترشح جديدة"
-            return render(request, 'duration.html', context)
-        else:
-            return HttpResponse("Invalid request method.")
         
 @login_required
 def duration(request):
@@ -272,6 +220,25 @@ def duration(request):
     else:
         return HttpResponse('Erorr 404 Not found')
 
+
+'''
+@login_required
+def new_elections(request):
+    context = admincheck(request)
+    if context['admin'] == True:
+        form = Dates_form(request.POST or None)
+        context['df'] = form
+        if request.method == 'GET':
+            Nominee_user.objects.all().delete()
+            Contention.objects.all().delete()
+            User_Model.objects.update(reservation_status = 0)
+            dates.nominations_period_id = dates.nominations_period_id + 1
+            dates.save()
+            
+            context['ConfirmationMessage'] = "تم بداية مرحلة ترشح جديدة"
+            return render(request, 'duration.html', context)
+        else:
+            return HttpResponse("Invalid request method.")
 
 @login_required
 def list_nominee(request):
@@ -309,7 +276,7 @@ def update_nominee(request, nominee_id):
     context['form'] = form
 
     return render(request, 'updatenominee.html', context=context)
-
+'''
 
 def save_data(request, form):
     if form.is_valid():

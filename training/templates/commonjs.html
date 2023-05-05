@@ -34,6 +34,7 @@ let header = document.querySelector("header");
   let myButton9 = document.querySelector("#b9");
 
 
+  
   if (myButton1 != null) {
   myButton1.onclick = () => {
     window.open("{% url 'sign_in' %}", "_self");
@@ -46,44 +47,15 @@ if (myButton2 != null) {
   };
 };
 
-if (myButton3 != null) {
+  if (myButton3 != null) {
   myButton3.onclick = () => {
-    window.open("{% url 'nomination' %}", "_self");
-  };
-};
-
-if (myButton4 != null){
-  myButton4.onclick = () => {
-    window.open("{% url 'result' %}", "_self");
+    window.open("{% url 'parking' %}", "_self");
   };
 };
 
 if (myButton5 != null) {
   myButton5.onclick = () => {
-    window.open("{% url 'vote1' %}", "_self");
-  };
-};
-
-if (myButton6 != null){
-myButton6.onclick = () => {
-    window.open("{% url 'contention' %}", "_self");
-  };
-};
-
-if (myButton7 != null) {
-  myButton7.onclick = () => {
-    window.open("{% url 'list_nominee' %}", "_self");
-  };
-};
-
-if (myButton8 != null) {
-  myButton8.onclick = () => {
-    window.open("{% url 'duration' %}", "_self");
-  };
-};
-  if (myButton9 != null) {
-  myButton9.onclick = () => {
-    window.open("{% url 'list_contention' %}", "_self");
+    window.open("{% url 'reservation' %}", "_self");
   };
 };
 
