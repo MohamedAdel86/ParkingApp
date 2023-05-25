@@ -5,7 +5,7 @@
 .container {
   display: grid;
   grid-template-columns: repeat(13, 1fr) auto;
-  grid-template-rows: 100px minmax(calc(100vh - 150px),1fr) 50px;
+  grid-template-rows: 100px minmax(1000px,1fr) 50px;
   font-family: muli;
 }
 
@@ -20,7 +20,7 @@ header {
   padding: 10px;
 
   z-index: 2;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 3px 5px, rgba(0, 0, 0, 0.22) 0px 1px 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 3px 5px, rgba(175, 175, 175, 0.22) 0px 1px 10px;
 
 }
 
@@ -40,7 +40,7 @@ header a:last-of-type {
 /*Sidebar*/
 .main-side-bar {
   grid-area: 1/14/4/15;
-  background-color: #1e1a1a;
+  background-color: #1d1716;
   display: grid;
   grid-template-columns: 80px min(250px);
   grid-template-rows: 300px 1fr;
@@ -68,6 +68,7 @@ header a:last-of-type {
 }
 
 .side-bar-button {
+ direction: rtl;
   width: 100%;
   height: 60px;
   background-color: transparent;
@@ -133,7 +134,19 @@ header a:last-of-type {
   flex-flow: column;
   align-items: center;
 }
+.listOfGovernorates a,
+.listOfprices a {
+  color: #666;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  transition: color 0.1s ease-in-out;
+}
 
+.listOfGovernorates a:hover,
+.listOfprices a:hover {
+  color: #333;
+}
 /*main*/
 .main-content {
   grid-area: 2/1/3/15;
@@ -141,30 +154,12 @@ header a:last-of-type {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 50px;
   z-index: 1;
   font: 1.2em muli;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  margin-right: 100px;
-  margin-left: 100px;
 }
 
-.card-parking-img{
-  
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-  border-radius: 10px;
-
-}
-
-.card{
-  position: relative;
+/*Generic main content*/
+.generic-card{
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -197,32 +192,15 @@ header a:last-of-type {
 }
 
 .small{
+  min-width: 400px;
+  width: 45%;
+  max-width: 60%;
   height: 300px;
-  width: 400px;
-
-
 }
 
 .tiny{
   min-width: 5%;
   min-height: 300px;
-}
-
-.card-title{
-  display: flex;
-  flex-flow: row;
-  justify-content: center;
-  align-items: center;
-  height: 20%;
-  width: 100%;
-  gap: 30px;
-  z-index: 4;
-  color:rgb(255, 255, 255);
-  background-color: #1e1a1ae0;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px -14px 28px, rgba(0, 0, 0, 0.22) 0px -10px 10px;
-  border-radius: 10px;
-  border-top-left-radius: 0px;
-  border-top-left-radius: 0px;
 }
 
 .flexhoriz{
@@ -243,11 +221,13 @@ header a:last-of-type {
   gap: 30px;
 }
 
+/*plotly*/
 .plot-area{
   width: 100%;
   margin-bottom: 20px;
 }
 
+/*Tables and Ag-grid*/
 .normal-table{
   min-width: 400px;
   width:70%;
@@ -301,14 +281,14 @@ td{
   margin-bottom: 20px;
 }
 
+/*Main buttons*/
 .main-button {
   width: 15%;
   min-width: 150px;
-  height: 60px;
+  height: 55px;
   background-color: #1e1a1a;
   color: #ffffff;
-    cursor: pointer;
-  font: 1.2em muli;
+  cursor: pointer;
   border:  2px solid #1e1a1a;
   border-radius: 20px;
   transition: .1s;
@@ -321,7 +301,18 @@ td{
   border:  2px solid rgb(103, 103, 103);
   transition: .1s;
 }
+/*Fonts*/
+.muli-L{
+font: 60px muli;
+}
 
+.muli-M{
+  font: 35px muli;
+  }
+
+.muli-S{
+  font: 15px muli;
+  }
 
 /*forms*/
 .form-container {
@@ -415,7 +406,7 @@ input[type='checkbox']:checked + .toggel-switch{
 /*footer*/
 footer {
   grid-area: 3/1/4/15;
-  background-color: #333;
+  background-color: #463936;
   color: rgb(255, 255, 255);
   display: flex;
   align-items: center;
@@ -446,7 +437,7 @@ footer {
   /*sidebar*/
   .main-side-bar {
     grid-area: 1/14/4/15;
-    background-color: #1e1a1a;
+    background-color: #1d1716;
     display: grid;
     grid-template-columns: 80px min(250px);
     grid-template-rows: 300px 1fr;
@@ -581,3 +572,7 @@ input[type='submit']{
 }
 
 }
+
+
+
+

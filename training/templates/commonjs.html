@@ -32,7 +32,9 @@ let header = document.querySelector("header");
   let myButton7 = document.querySelector("#b7");
   let myButton8 = document.querySelector("#b8");
   let myButton9 = document.querySelector("#b9");
+  let myButton12 = document.querySelector("#b12");
 
+  let reservebutton = document.querySelector("#reservebutton");
 
   
   if (myButton1 != null) {
@@ -55,9 +57,16 @@ if (myButton2 != null) {
 
 if (myButton5 != null) {
   myButton5.onclick = () => {
-    window.open("{% url 'reservation' %}", "_self");
+    window.open("{% url 'showres' %}", "_self");
   };
 };
+
+if (myButton12 != null) {
+  myButton12.onclick = () => {
+    window.open("{% url 'signup' %}", "_self");
+  };
+};
+
 
 });
 </script>

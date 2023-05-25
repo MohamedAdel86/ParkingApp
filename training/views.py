@@ -36,6 +36,20 @@ def home(request):
 
 
 # User related views
+from django.shortcuts import render, redirect
+from .forms import SignUpForm
+
+def signup(request):
+    context = admincheck(request)
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home') 
+    else:
+        context['form'] = SignUpForm()
+    return render(request, 'signup.html', context)
+
 
 def sign_in(request):
 
@@ -74,6 +88,42 @@ def parking(request):
     current_user = request.user
     context['parkingspots'] = Parking_spot.objects.all()
 
+    pricelist = ["0:50","51:100","101:200","200:500"]
+    context['pricelist'] = pricelist
+
+    governorate_list = Parking_spot._meta.get_field('governorate').choices
+    context['listOfGovernorates'] = governorate_list
+    return render(request, 'parking.html', context=context)
+
+@login_required
+def parkingfilterbygov(request, parking_gov):
+    context = admincheck(request)
+    current_user = request.user
+    context['parkingspots'] = Parking_spot.objects.filter(governorate = parking_gov)
+
+
+    pricelist = ["0:50","51:100","101:200","200:500"]
+    context['pricelist'] = pricelist
+
+    governorate_list = Parking_spot._meta.get_field('governorate').choices
+    context['listOfGovernorates'] = governorate_list
+    return render(request, 'parking.html', context=context)
+
+@login_required
+def parkingsortbyprice(request, type):
+    context = admincheck(request)
+    current_user = request.user
+    if type == "asc":
+        context['parkingspots'] = Parking_spot.objects.order_by("price")
+
+    else:
+        context['parkingspots'] = Parking_spot.objects.order_by("-price")
+
+    pricelist = ["0:50","51:100","101:200","200:500"]
+    context['pricelist'] = pricelist
+
+    governorate_list = Parking_spot._meta.get_field('governorate').choices
+    context['listOfGovernorates'] = governorate_list
     return render(request, 'parking.html', context=context)
 
 
@@ -85,34 +135,48 @@ def expandparking(request, parking_id):
     return render(request, 'expandparking.html', context=context)
     
 @login_required
-def reservation(request):
+def reservation(request, parking_id):
     context = admincheck(request)
     current_user = request.user
     User_Mod = User_Model.objects.get(Userkey_id=current_user.id)
-
-    if Reservation.objects.filter(User_Model=User_Mod).exists():
+    parking = Parking_spot.objects.get(id=parking_id)
+    if Reservation.objects.filter(User_Model=User_Mod, parking_spot = parking).exists():
         context.update({"ConfirmationMessage": 'تم الحجز من قبل'})
-        return render(request, 'nom1.html', context=context)
+        return render(request, 'reservation.html', context=context)
 
     else:
         initial_values = {'Name': User_Mod.Name,
-                          'Date': now,
-                          }
-        form = reservation(request.POST or None,
+                          'address': User_Mod.address,
+                          'phone_num': User_Mod.phone_no,
+                            'Date': datetime.now,
+                            'parking_spot':parking,
+                            'price': parking.price,     
+                        }
+        form = Reserve(request.POST or None,
                            request.FILES, initial=initial_values)
 
         if request.POST:
             if form.is_valid():
                 NewReservation = form.save(commit=False)
                 NewReservation.User_Model = User_Mod
+                NewReservation.parking_spot = parking
                 NewReservation.save()
                 context['ConfirmationMessage'] = "تم الحجز"
             else:
                 context['ConfirmationMessage'] = "Error: couldn't save application"
         context['form'] = form
+        context['parking'] = Parking_spot.objects.filter(id = parking_id)
         return render(request, 'reservation.html', context=context)
 
-
+@login_required
+def showres(request):
+    context = admincheck(request)
+    current_user = request.user
+    User_Mod = User_Model.objects.get(Userkey_id=current_user.id)
+    if Reservation.objects.filter(User_Model=User_Mod).exists():
+        context['reservations'] = Reservation.objects.filter(User_Model=User_Mod)
+        print (context['reservations'])
+        return render(request, 'showreservations.html', context=context)
 
 # Admin related views
 

@@ -3,27 +3,75 @@
 {% block headcontent %}
 {% load static %}
   <meta property="og:title" content="Vote page" />
+  <link rel=" stylesheet" href="{% static 'css/parking.css' %}" />
   <title>Parking spots</title>
 {% endblock %}
 
 {% block maincontent %}
-  {% for p in parkingspots %}
-  <a href = "{%url 'expandparking' p.id %}">
-  <div class="small card sharp">
-    <img  class = "card-parking-img" src="{{p.parkingphoto.url}}"></img>
 
-    <div class="card-title">
-      <div class="card-name">
+
+<div class="muli-L page-title">Parking Spaces</div>
+
+<div class = "side-controls">
+
+<div class="side-control">
+  <div class="side-control-disp">
+  Filter by
+  </div>
+  <div id="side-control-governorate-filter" class="side-control-disp">
+    Governorate
+  </div>
+  <div class="listOfGovernorates flexvert muli-S" style="width:25%;">
+    {% for govkey, gov in listOfGovernorates%}
+    <a href="{% url 'parkingfilterbygov' govkey %}">
+      {{gov}}
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+
+<div class="side-control">
+  <div class="side-control-disp">
+    Sort by
+    </div>
+    <div id="side-control-price-sort">
+    Price
+  </div>
+  <div class="listOfprices flexvert muli-S" style="width:25%;">
+    <a href="{% url 'parkingsortbyprice' 'asc' %}">
+      Ascending
+    </a>
+    <a href="{% url 'parkingsortbyprice' 'desc' %}">
+      Descending
+    </a>
+
+  </div>
+
+</div>
+
+
+</div>
+
+<section class="parkinglist">
+  {% for p in parkingspots %}
+  <a class = "card-link" href = "{%url 'expandparking' p.id %}">
+  <div class="small parking-card sharp">
+    <div class="parking-card-img" style="background-image: url('{{p.parkingphoto.url}}')"></div>
+
+    <div class="parking-card-title">
+      <div class="">
         {{p.Name}}
       </div>
-
       <div class="">
         {{p.price}}EGP
       </div>
-
+      
     </div>
   </div>
   </a>
   {% endfor %}
+</section>
+{% include 'parkingjs.html' %}
 
 {% endblock %}

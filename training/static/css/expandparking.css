@@ -41,17 +41,18 @@
 
 }
 
-  .parking-desc{
+.parking-desc{
     grid-area: 2/2/4/3;
     display: flex;
-    flex-flow: row;
+    flex-flow: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     gap: 30px;
     z-index: 4;
     color:rgb(0, 0, 0);
-   background-color: #ffffff;
+    background-color: #ffffff;
     border-radius: 2px;
   }
+  
 

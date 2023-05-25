@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block maincontent %}
+<div class="form-container">
+  <h2>تسجيل جديد</h2>
+  <form method="post">
+    {% csrf_token %}
+
+      <div class="field">
+        {{form.username.label}}
+        {{ form.username }}
+      </div>
+
+      <div class="field">
+        الايميل
+        {{ form.email }}
+      </div>
+
+      <div class="field">
+        كلمة المرور
+        {{ form.password1 }}
+      </div>
+
+      <div class="field">
+        تأكيد كلمة المرور
+        {{ form.password2}}
+      </div>
+
+    <button type="submit">Sign Up</button>
+  </form>
+</div>
+{% endblock %}

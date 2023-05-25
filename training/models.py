@@ -9,6 +9,35 @@ class User_Model(models.Model):
     Name = models.CharField(max_length=50, default="")
     phone_no = models.IntegerField(null=True)
     email = models.EmailField(max_length=50, null=True)
+    GOVERNORATE_CHOICES = (
+        ('ALE', 'Alexandria'),
+        ('ASN', 'Aswan'),
+        ('ASY', 'Asyut'),
+        ('BEH', 'Beheira'),
+        ('BNS', 'Beni Suef'),
+        ('C', 'Cairo'),
+        ('DAK', 'Dakahlia'),
+        ('DAM', 'Damietta'),
+        ('FYM', 'Faiyum'),
+        ('GHY', 'Gharbia'),
+        ('GZ', 'Giza'),
+        ('IS', 'Ismailia'),
+        ('KFS', 'Kafr El Sheikh'),
+        ('LX', 'Luxor'),
+        ('MN', 'Minya'),
+        ('MNF', 'Monufia'),
+        ('MT', 'Matrouh'),
+        ('NS', 'North Sinai'),
+        ('PTS', 'Port Said'),
+        ('QAH', 'Qena'),
+        ('SHR', 'Sharqia'),
+        ('SIN', 'South Sinai'),
+        ('SUZ', 'Suez'),
+        ('SW', 'Sohag'),
+        ('WAD', 'New Valley'),
+    )
+    governorate = models.CharField(max_length=3, choices=GOVERNORATE_CHOICES)
+    city =  models.CharField(max_length=52)
     address = models.CharField(max_length=200, null=True)
     birthdate = models.DateField(null=True)
     reservation_status = models.BooleanField(default=False)
@@ -18,10 +47,41 @@ class User_Model(models.Model):
 
 class Parking_spot(models.Model):
     Name = models.CharField(max_length=50)
+    GOVERNORATE_CHOICES = (
+        ('ALE', 'Alexandria'),
+        ('ASN', 'Aswan'),
+        ('ASY', 'Asyut'),
+        ('BEH', 'Beheira'),
+        ('BNS', 'Beni Suef'),
+        ('C', 'Cairo'),
+        ('DAK', 'Dakahlia'),
+        ('DAM', 'Damietta'),
+        ('FYM', 'Faiyum'),
+        ('GHY', 'Gharbia'),
+        ('GZ', 'Giza'),
+        ('IS', 'Ismailia'),
+        ('KFS', 'Kafr El Sheikh'),
+        ('LX', 'Luxor'),
+        ('MN', 'Minya'),
+        ('MNF', 'Monufia'),
+        ('MT', 'Matrouh'),
+        ('NS', 'North Sinai'),
+        ('PTS', 'Port Said'),
+        ('QAH', 'Qena'),
+        ('SHR', 'Sharqia'),
+        ('SIN', 'South Sinai'),
+        ('SUZ', 'Suez'),
+        ('SW', 'Sohag'),
+        ('WAD', 'New Valley'),
+    )
+    governorate = models.CharField(max_length=3, choices=GOVERNORATE_CHOICES)
+    city =  models.CharField(max_length=52)
     address = models.CharField(max_length=50)
     price = models.IntegerField()
     parkingphoto = models.ImageField(upload_to='images/')
 
+    def __str__(self):
+        return str(self.Name)
 
 class Worker(models.Model):
     worker_id = models.OneToOneField(User_Model, on_delete=models.CASCADE)
@@ -30,13 +90,9 @@ class Worker(models.Model):
     def __str__(self):
         return str(self.worker_id.Name)
 
-
-
-
 class Admin_user(models.Model):
     Userkey = models.OneToOneField(User, on_delete=models.CASCADE)
     Name = models.CharField(max_length=50, default="")
-
 
 
 class Reservation(models.Model):

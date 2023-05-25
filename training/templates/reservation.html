@@ -9,12 +9,11 @@
 
 {% block maincontent %}
 <div class="form-container">
-  {% if std_access.nomination %}
-  <form enctype="multipart/form-data" id="myForm" class="nomination" action="{% url 'nomination' %}" method="POST">
+  <form enctype="multipart/form-data" id="myForm" class="nomination" action="{% url 'reservation' '1' %}" method="POST">
     {%csrf_token%}
 
-    <h2 class="form-name">استمارة ترشح</h2>
-    {% if ConfirmationMessage == 'Application already sent' or ConfirmationMessage == 'Application sent successfuly' %}
+    <h2 class="form-name" style="direction:rtl;">حجز موقف</h2>
+    {% if ConfirmationMessage == 'تم الحجز من قبل' or ConfirmationMessage == 'تم الحجز' %}
     <div>{{ ConfirmationMessage }}</div>
 
     {% else %}
@@ -24,54 +23,37 @@
     </div>
 
     <div class="field">
-      {{form.nominee_id.label}}
-      {{form.nominee_id}}
-    </div>
-
-    <div class="field">
       {{form.address.label}}
       {{form.address}}
-    </div>
-
-    <div class="field">
-      {{form.birthdate.label}}
-      {{form.birthdate}}
-    </div>
-
-    <div class="field">
-      {{form.collegeYear.label}}
-      {{form.collegeYear}}
     </div>
 
     <div class="field">
       {{form.phone_no.label}}
       {{form.phone_no}}
     </div>
-
+  
     <div class="field">
-      {{form.email.label}}
-      {{form.email}}
+      {{form.Date.label}}
+      {{form.Date}}
     </div>
 
     <div class="field">
-      {{form.community.label}}
-      {{form.community}}
+      {{form.parking_spot.label}}
+      {{form.parking_spot}}
     </div>
 
+
+
     <div class="field">
-      {{form.rec_letter.label}}
-      {{form.rec_letter}}
+      {{form.price.label}}
+      {{form.price}}
     </div>
+
     {% if ConfirmationMessage %}
     <div>{{ ConfirmationMessage }}</div>
     {% endif %}
-    <input type="submit" value="تقديم الاستمارة" />
+    <input type="submit" value="تأكيد" />
     {% endif %}
   </form>
-  {% else %}
-  <div class="unavailable-field field">
-      الترشح غير متاح حاليا
-  </div>
-  {% endif %}
 </div>
 {% endblock %}

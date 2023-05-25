@@ -1,0 +1,28 @@
+<script>
+    /*Grids*/
+    const gridOptions = {
+    
+        columnDefs: [
+        { field: "اسم الموقف", sortable: true},
+        { field: "التاريخ", sortable: true},
+        { field: "السعر", sortable: true}],
+    
+        rowData : [{% for res in reservations%}
+                    { 
+                    'التاريخ' : '{{res.Date}}',
+                    'اسم الموقف' : '{{res.parking_spot}}',
+                    'السعر' : '{{res.price}}',}
+                    {% endfor %} ]
+    
+    };
+     
+        const gridDiv = document.querySelector('#cdt3');
+        new agGrid.Grid(gridDiv, gridOptions);
+    
+    /*Grid download*/
+    let gdb3 = document.querySelector('#gdb3')
+    gdb3.addEventListener('click',() => {
+        print(gdb3.parentNode);
+    
+    });
+    </script>

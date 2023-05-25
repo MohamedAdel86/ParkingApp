@@ -21,8 +21,11 @@
 
   <div class="parking-desc">
     {{p.price}}EGP
-    <div calss="flexhoriz">
-      </div>
+    <button class="main-button flexvert" url = "{% url 'reservation' p.id %}" id="reservebutton">
+      حجز
+    </button>
   </div>
 {% endfor %}
+{% include "expandparkingjs.html" %}
+
 {% endblock %}

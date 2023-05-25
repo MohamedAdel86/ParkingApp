@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block headcontent %}
+{% load static %}
+<meta property="og:title" content="Home Page">
+<meta property="og:description" content="Students Union">
+<title>Students Union </title>
+<link rel="stylesheet" href="{% static 'css/adminp1.css' %}">
+
+{% endblock %}
+
+
+
+{% block maincontent %}
+
+
+<section class="sharp generic-card medium" id="cd3">
+    <p class="card-name">الحجوزات</p>
+    <div class="ag-table-big ag-theme-alpine" id="cdt3">
+    </div>
+</section>
+
+
+{% include 'showreservationsjs.html' %}
+
+{% endblock %}

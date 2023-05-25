@@ -1,0 +1,29 @@
+<script>
+  let sidecontrol = document.querySelectorAll(".side-control-disp");
+
+    let sideControlCityFilter = document.querySelector('#side-control-governorate-filter');
+    let sideControlPriceSort = document.querySelector('#side-control-price-sort');
+
+  sidecontrol.forEach((elem) => {
+    let nextSibling = elem.nextElementSibling;
+    while(nextSibling) {
+        nextSibling.style.display = "none";
+        nextSibling = nextSibling.nextElementSibling;
+    }
+    elem.onclick = () => {
+    let nextSibling = elem.nextElementSibling;
+      console.log("frf");
+      while(nextSibling) {
+        let dis = nextSibling.style.display;
+      if (dis === "none") {
+        nextSibling.style.display = "block";
+      } else {
+        nextSibling.style.display = "none";
+      }
+        nextSibling = nextSibling.nextElementSibling;
+
+}
+
+    };
+  });
+</script>

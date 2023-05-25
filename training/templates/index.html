@@ -5,24 +5,40 @@
 <meta property="og:title" content="Home Page">
 <meta property="og:image" content="images/logo.png">
 <title>Students Union </title>
-<link rel="stylesheet" href="{% static 'css/indexp.css' %}">
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock %}
 
 
 
 {% block maincontent %}
-<section class="card large">
 
-</section>
+<section class="hero" style="background-image: url({% static 'img/parking-hero.png' %});";
+>
+    <div class="hero-content">
+      <h1 style="direction:rtl;">احجز parking بسهولة</h1>
+      <p>Book a parking spot hassle-free</p>
+    </div>
+  </section>
+  <h2 style="display:flex; justify-content: center; width:100%; height:5px; margin-bottom: -100px;";>المزايا</h2>
 
-<section class="card small">
-    
-</section>
-
-<section class="card small">
-    
-</section>
-
+  <section class="features">
+    <div class="feature-item">
+      <img src="{% static 'img/feature1.png' %}" alt="Feature 1">
+      <h3>سهولة الحجز</h3>
+      <p>احجز موقف بسهولة أونلاين</p>
+    </div>
+    <div class="feature-item">
+      <img src="{% static 'img/feature2.png' %}" alt="Feature 2">
+      <h3>دفع آمن</h3>
+      <p>خيارات دفع آمنة</p>
+    </div>
+    <div class="feature-item">
+      <img src="{% static 'img/feature3.png' %}" alt="Feature 3">
+      <h3>متابعة المواقف المتاحة</h3>
+      <p>تقدر تشوف المواقف المتاحة على مدار اليوم</p>
+    </div>
+  </section>
+  
 {% endblock %}
 
     

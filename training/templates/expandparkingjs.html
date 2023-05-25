@@ -1,0 +1,12 @@
+<script>
+let reservebutton = document.getElementById("reservebutton")
+
+{% for p in parking %}
+if (reservebutton != null) {
+    reservebutton.onclick = () => {
+    window.open("{% url 'reservation' p.id %}", "_self");
+  };
+};
+{% endfor %}
+
+</script>
