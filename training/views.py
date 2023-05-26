@@ -177,6 +177,9 @@ def showres(request):
         context['reservations'] = Reservation.objects.filter(User_Model=User_Mod)
         print (context['reservations'])
         return render(request, 'showreservations.html', context=context)
+    else:
+        context['message'] = "لا يوجد حجوزات"
+        return render(request, 'showreservations.html', context=context)
 
 # Admin related views
 
