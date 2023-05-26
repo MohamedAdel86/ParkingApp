@@ -1,6 +1,6 @@
 cd
-rm -rf Training
-git clone git@github.com:hafifi29/Training.git
-cd Training
+rm -rf ParkingApp
+git clone git@github.com:MohamedAdel86/ParkingApp.git
+cd ParkingApp
 python manage.py collectstatic
 cd
