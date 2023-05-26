@@ -101,6 +101,7 @@ header a:last-of-type {
   align-items: center;
   justify-content: center;
   height: 150px;
+  margin-top: 30px;
 }
 
 .user {

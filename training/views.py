@@ -41,13 +41,21 @@ from .forms import SignUpForm
 
 def signup(request):
     context = admincheck(request)
+    print(request)
     if request.method == 'POST':
         form = SignUpForm(request.POST)
+        context['form'] = form
         if form.is_valid():
             form.save()
-            return redirect('home') 
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            print(username, password)
+            user_logedin = authenticate(request, username=username, password=password)
+            login(request, user_logedin)
+            return redirect('home')
     else:
-        context['form'] = SignUpForm()
+        form = SignUpForm()
+        context['form'] = form
     return render(request, 'signup.html', context)
 
 
