@@ -407,7 +407,7 @@ input[type='checkbox']:checked + .toggel-switch{
 /*footer*/
 footer {
   grid-area: 3/1/4/15;
-  background-color: #463936;
+  background-color: #333;
   color: rgb(255, 255, 255);
   display: flex;
   align-items: center;
